@@ -184,17 +184,48 @@
   <p id="chat-status">AI connection: Not connected yet</p>
 </section>
 <script>
-document.getElementById('chat-send').addEventListener('click', function() {
-  const input = document.getElementById('chat-input');
-  const output = document.getElementById('chat-output');
-  const status = document.getElementById('chat-status');
-  if (!input.value.trim()) return;
-  const message = document.createElement('p');
-  message.textContent = 'You: ' + input.value;
-  output.appendChild(message);
+const input = document.getElementById('chat-input');
+const output = document.getElementById('chat-output');
+const status = document.getElementById('chat-status');
+const button = document.getElementById('chat-send');
+
+function sendMessage() {
+  const text = input.value.trim();
+  if (!text) return;
+
+  const user = document.createElement('p');
+  user.textContent = 'You: ' + text;
+  output.appendChild(user);
+
+  const q = text.toLowerCase();
+  let reply = 'Thanks for messaging AI Buddy India!';
+
+  if (q.includes('hello') || q.includes('hi')) {
+    reply = 'Hello! Welcome to AI Buddy India. How can I help you?';
+  } else if (q.includes('name')) {
+    reply = 'My name is AI Buddy India!';
+  } else if (q.includes('study') || q.includes('पढ़ाई')) {
+    reply = 'I can help you learn Maths, Science and other subjects.';
+  } else if (q.includes('python')) {
+    reply = 'Python is a popular programming language. Welcome to coding!';
+  } else if (q.includes('help') || q.includes('मदद')) {
+    reply = 'Sure! Ask me about education, technology or coding.';
+  }
+
+  const bot = document.createElement('p');
+  bot.textContent = 'AI Buddy: ' + reply;
+  output.appendChild(bot);
+
   input.value = '';
-  status.textContent = 'Message received. AI backend connection is the next step.';
+  status.textContent = 'Demo Mode: Reply generated';
+}
+
+button.addEventListener('click', sendMessage);
+
+input.addEventListener('keydown', function(event) {
+  if (event.key === 'Enter') sendMessage();
 });
+
 </script>
 
 </body>
